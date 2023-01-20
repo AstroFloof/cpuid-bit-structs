@@ -22,3 +22,11 @@ pub use leaf_D_sub1::*;
 /// https://en.wikipedia.org/wiki/CPUID#EAX=12h,_ECX=0:_SGX_Leaf_Functions
 mod leaf_12_sub_0;
 pub use leaf_12_sub_0::*;
+
+/// https://en.wikipedia.org/wiki/CPUID#EAX=14h,_ECX=0
+mod leaf_14_sub_0;
+pub use leaf_14_sub_0::*;
+
+/// https://en.wikipedia.org/wiki/CPUID#EAX=19h
+mod leaf_19;
+pub use leaf_19::*;
