@@ -1,7 +1,7 @@
 #![allow(non_snake_case)]
 
-use core::arch::x86_64::__cpuid;
 use bit_struct::*;
+use core::arch::x86_64::__cpuid;
 
 bit_struct! {
 
@@ -33,7 +33,7 @@ pub fn cpuid_thermal_and_power_features() -> (ThermalFeatures, InterruptThreshol
         (
             ThermalFeatures::from_unchecked(cpuid.eax),
             InterruptThresholds::from_unchecked(cpuid.ebx),
-            PowerFeatures::from_unchecked(cpuid.ecx)
+            PowerFeatures::from_unchecked(cpuid.ecx),
         )
     }
 }

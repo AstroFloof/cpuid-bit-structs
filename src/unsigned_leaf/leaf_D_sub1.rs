@@ -1,7 +1,7 @@
 #![allow(non_snake_case)]
 
-use core::arch::x86_64::__cpuid_count;
 use bit_struct::*;
+use core::arch::x86_64::__cpuid_count;
 
 bit_struct! {
     pub struct ExtraProcessorExtendedStates(u32) {

@@ -1,7 +1,7 @@
 #![allow(non_snake_case)]
 
-use core::arch::x86_64::__cpuid;
 use bit_struct::*;
+use core::arch::x86_64::__cpuid;
 
 enums! {
     pub ProcessorType { OEM, Overdrive, Dual, Reserved }
@@ -100,14 +100,19 @@ bit_struct! {
     }
 }
 
-pub fn cpuid_basic_info() -> (ProcessorVersionInfo, Leaf1AdditionalInfo, FeatureInfo1, FeatureInfo2) {
+pub fn cpuid_basic_info() -> (
+    ProcessorVersionInfo,
+    Leaf1AdditionalInfo,
+    FeatureInfo1,
+    FeatureInfo2,
+) {
     unsafe {
         let cpuid = __cpuid(1);
         (
             ProcessorVersionInfo::from_unchecked(cpuid.eax),
             Leaf1AdditionalInfo::from_unchecked(cpuid.ebx),
             FeatureInfo1::from_unchecked(cpuid.ecx),
-            FeatureInfo2::from_unchecked(cpuid.edx)
+            FeatureInfo2::from_unchecked(cpuid.edx),
         )
     }
 }

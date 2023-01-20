@@ -1,8 +1,8 @@
 #![allow(non_snake_case)]
 #![allow(non_camel_case_types)]
 
-use core::arch::x86_64::__cpuid_count;
 use bit_struct::*;
+use core::arch::x86_64::__cpuid_count;
 
 bit_struct! {
     pub struct SGXLeaves_EnclaveFunctions(u32) {

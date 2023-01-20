@@ -1,7 +1,7 @@
 #![allow(non_snake_case)]
 
-use core::arch::x86_64::__cpuid;
 use bit_struct::*;
+use core::arch::x86_64::__cpuid;
 
 bit_struct! {
     pub struct KeyLockers(u32) {
@@ -10,7 +10,7 @@ bit_struct! {
         AES_WIDE_KL: bool,
         _res_b: u1,
         KL_MSRS: bool,
-        _res_c: u28
+        _res_c: u27
     }
 }
 

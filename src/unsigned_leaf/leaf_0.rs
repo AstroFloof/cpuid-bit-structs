@@ -3,7 +3,7 @@ use alloc::vec::Vec;
 
 use core::arch::x86_64::__cpuid;
 
-pub fn cpuid_highest_function_parameter_and_manufacturer_id() -> (u32, String) {
+pub fn cpuid_highest_function_implemented_and_manufacturer_id() -> (u32, String) {
     let cpuid = unsafe { __cpuid(0) };
     let mut bytes: Vec<u8> = Vec::with_capacity(12);
     bytes.extend_from_slice(&cpuid.ebx.to_le_bytes());
