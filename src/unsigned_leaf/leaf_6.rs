@@ -2,7 +2,7 @@
 
 use core::arch::x86_64::__cpuid;
 use bit_struct::*;
-// https://en.wikipedia.org/wiki/CPUID#EAX=6:_Thermal_and_power_management
+
 bit_struct! {
 
     pub struct ThermalFeatures(u32) {

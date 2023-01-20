@@ -2,7 +2,6 @@
 
 use core::arch::x86_64::__cpuid;
 use bit_struct::*;
-// https://en.wikipedia.org/wiki/CPUID#EAX=1:_Processor_Info_and_Feature_Bits
 
 enums! {
     pub ProcessorType { OEM, Overdrive, Dual, Reserved }
