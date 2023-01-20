@@ -12,12 +12,12 @@ pub use leaf_6::*;
 
 /// https://en.wikipedia.org/wiki/CPUID#EAX=7,_ECX=0:_Extended_Features
 /// https://en.wikipedia.org/wiki/CPUID#EAX=7,_ECX=1:_Extended_Features
-mod leaf7;
-pub use leaf7::*;
+mod leaf_7;
+pub use leaf_7::*;
 
 /// https://en.wikipedia.org/wiki/CPUID#EAX=0Dh,_ECX=1
-mod leaf_D_sub1;
-pub use leaf_D_sub1::*;
+mod leaf_D_sub_1;
+pub use leaf_D_sub_1::*;
 
 /// https://en.wikipedia.org/wiki/CPUID#EAX=12h,_ECX=0:_SGX_Leaf_Functions
 mod leaf_12_sub_0;
