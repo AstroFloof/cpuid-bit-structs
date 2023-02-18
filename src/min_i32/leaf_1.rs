@@ -5,7 +5,7 @@ use core::arch::x86_64::__cpuid;
 
 bit_struct! {
 
-    pub struct AMDFeatureInfo1(u32) {
+    pub struct AMDFeatureFlags1(u32) {
         FPU: bool,
         VME: bool,
         DE: bool,
@@ -37,7 +37,7 @@ bit_struct! {
         AMD3DNOW: bool,
     }
 
-    pub struct AMDFeatureInfo2(u32) {
+    pub struct AMDFeatureFlags2(u32) {
         LAHF_LM: bool,
         CMP_LEGACY: bool,
         SVM: bool,
@@ -72,13 +72,16 @@ bit_struct! {
         _res_e: u1
     }
 }
-
-pub fn cpuid_amd_specific_feature_info() -> (AMDFeatureInfo1, AMDFeatureInfo2) {
+/// This returns feature flags specific to AMD processors.
+/// # Safety
+/// This function can give invalid information if the CPUID instruction for this information is not implemented on the host processor.
+/// It is necessary to check to make sure the CPU supports function parameter 0x01 or greater.
+pub unsafe fn cpuid_amd_specific_feature_flags() -> (AMDFeatureFlags1, AMDFeatureFlags2) {
     unsafe {
-        let cpuid = __cpuid((i32::MIN + 0) as u32);
-        (
-            AMDFeatureInfo1::from_unchecked(cpuid.edx),
-            AMDFeatureInfo2::from_unchecked(cpuid.ecx),
-        )
+        let cpuid = __cpuid((i32::MIN + 1) as u32);
+        return (
+            AMDFeatureFlags1::from_unchecked(cpuid.edx),
+            AMDFeatureFlags2::from_unchecked(cpuid.ecx),
+        );
     }
 }

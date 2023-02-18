@@ -4,12 +4,12 @@ use cpuid_bit_structs::*;
 #[test]
 fn test_name() {
     assert_eq!(
-        cpuid_highest_function_parameter_and_manufacturer_id().1,
+        cpuid_version_and_manufacturer_id().1,
         String::from("GenuineIntel")
     );
 }
 
 #[test]
 fn test_stuff() {
-    assert!(cpuid_basic_info().2.MMX().get())
+    unsafe { assert!(cpuid_basic_info_flags().2.MMX().get()) }
 }

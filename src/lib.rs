@@ -1,9 +1,11 @@
 #![no_std]
+#![deny(clippy::implicit_return)]
+#![allow(clippy::needless_return)]
 
-mod signed_leaf;
-mod unsigned_leaf;
+mod min_u32;
+pub use min_u32::*;
 
-pub use signed_leaf::*;
-pub use unsigned_leaf::*;
+mod min_i32;
+pub use min_i32::*;
 
 extern crate alloc;

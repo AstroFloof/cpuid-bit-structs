@@ -4,7 +4,7 @@ use bit_struct::*;
 use core::arch::x86_64::__cpuid_count;
 
 bit_struct! {
-    pub struct ExtFeatureInfo4(u32) {
+    pub struct MoreFeatureFlags4(u32) {
         _res_a: u3,
         RAO_INT: bool,
         AVX_VNNI: bool,
@@ -30,12 +30,12 @@ bit_struct! {
         _res_f: u4
     }
 
-    pub struct ExtFeatureInfo5(u32) {
+    pub struct MoreFeatureFlags5(u32) {
         IA32_PPIN: bool,
         _res: u31
     }
 
-    pub struct ExtFeatureInfo6(u32) {
+    pub struct MoreFeatureFlags6(u32) {
         _res_a: u4,
         AVX_VNNI_INT8: bool,
         AVX_NE_CONVERT: bool,
@@ -47,13 +47,16 @@ bit_struct! {
     }
 }
 
-pub fn cpuid_extended_features_456() -> (ExtFeatureInfo4, ExtFeatureInfo5, ExtFeatureInfo6) {
-    unsafe {
-        let cpuid = __cpuid_count(7, 1);
-        (
-            ExtFeatureInfo4::from_unchecked(cpuid.eax),
-            ExtFeatureInfo5::from_unchecked(cpuid.ebx),
-            ExtFeatureInfo6::from_unchecked(cpuid.edx),
-        )
-    }
+/// Returns extended feature flags.
+/// # Safety
+/// This function can give invalid information if the CPUID instruction for this information is not implemented on the host processor.
+/// It is necessary to check to make sure the CPU supports CPUID parameter 0x07 leaf 1 or greater.
+pub unsafe fn cpuid_extended_feature_flags_1(
+) -> (MoreFeatureFlags4, MoreFeatureFlags5, MoreFeatureFlags6) {
+    let cpuid = __cpuid_count(7, 1);
+    return (
+        MoreFeatureFlags4::from_unchecked(cpuid.eax),
+        MoreFeatureFlags5::from_unchecked(cpuid.ebx),
+        MoreFeatureFlags6::from_unchecked(cpuid.edx),
+    );
 }

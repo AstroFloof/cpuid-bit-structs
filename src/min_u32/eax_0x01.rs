@@ -19,14 +19,14 @@ bit_struct! {
         _reserved1: u4
     }
 
-    pub struct Leaf1AdditionalInfo(u32) {
+    pub struct AdditionalValues(u32) {
         BrandIndex: u8,
         FlushLineSize: u8,
         MaxAddressableLPIDs: u8,
         LocalAPICID: u8
     }
 
-    pub struct FeatureInfo1(u32) {
+    pub struct FeatureFlags1(u32) {
         FPU: bool,
         VME: bool,
         DE: bool,
@@ -63,7 +63,7 @@ bit_struct! {
         PBE: bool
     }
 
-    pub struct FeatureInfo2(u32) {
+    pub struct FeatureFlags2(u32) {
         SSE3: bool,
         CLMUL: bool,
         DTES64: bool,
@@ -99,20 +99,22 @@ bit_struct! {
         HYPERVISOR: bool
     }
 }
-
-pub fn cpuid_basic_info() -> (
+/// This returns the CPU's stepping, model, and family information
+/// (also called the signature of a CPU), feature flags, and additional feature info.
+/// # Safety
+/// This function can give invalid information if the CPUID instruction for this information is not implemented on the host processor.
+/// It is necessary to check to make sure the CPU supports function parameter 0x01 or greater.
+pub unsafe fn cpuid_basic_info_flags() -> (
     ProcessorVersionInfo,
-    Leaf1AdditionalInfo,
-    FeatureInfo1,
-    FeatureInfo2,
+    AdditionalValues,
+    FeatureFlags1,
+    FeatureFlags2,
 ) {
-    unsafe {
-        let cpuid = __cpuid(1);
-        (
-            ProcessorVersionInfo::from_unchecked(cpuid.eax),
-            Leaf1AdditionalInfo::from_unchecked(cpuid.ebx),
-            FeatureInfo1::from_unchecked(cpuid.ecx),
-            FeatureInfo2::from_unchecked(cpuid.edx),
-        )
-    }
+    let cpuid = __cpuid(1);
+    return (
+        ProcessorVersionInfo::from_unchecked(cpuid.eax),
+        AdditionalValues::from_unchecked(cpuid.ebx),
+        FeatureFlags1::from_unchecked(cpuid.ecx),
+        FeatureFlags2::from_unchecked(cpuid.edx),
+    );
 }
