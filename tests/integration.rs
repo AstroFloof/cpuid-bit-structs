@@ -1,4 +1,4 @@
-use cpuid_bit_structs::*;
+use cpuid_bs::*;
 
 // placeholder tests... there isn't an easy way to test because it's dependent on the running cpu lol
 #[test]
