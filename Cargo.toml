@@ -1,5 +1,5 @@
 [package]
-name = "cpuid-bit-structs"
+name = "cpuid-bs"
 version = "0.1.0"
 edition = "2021"
 
