@@ -6,3 +6,6 @@ pub use eax_1::*;
 
 mod eax_2_3_4;
 pub use eax_2_3_4::*;
+
+mod eax_6;
+pub use eax_6::*;
